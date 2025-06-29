@@ -6,7 +6,7 @@
 
 ### Summary
 
-I am a Cybersecurity Enthusiast and Physical Security Operations Monitoring expert. My passion lies in researching both cyber and physical security to understand evolving threats. I believe in raising awareness to prevent incidents—whether digital or physical. 
+I am a Cybersecurity Enthusiast. My passion lies in researching both cyber and physical security to understand evolving threats. I believe in raising awareness to prevent incidents—whether digital or physical. 
 
 Though I consider myself a lifelong student (always learning from the world around me), I stand firmly by two principles: honesty is my core value, and helping others is in my DNA.
 
