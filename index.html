@@ -6,7 +6,7 @@
     <title>Cyber Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* --- RESET & BASE (True Cyber/Terminal Theme) --- */
+        /* --- RESET & BASE --- */
         * {
             margin: 0;
             padding: 0;
@@ -61,7 +61,6 @@
             z-index: 1;
         }
 
-        /* --- GLOW TEXT --- */
         .glow {
             color: #00ffcc;
             text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
@@ -130,9 +129,9 @@
             opacity: 0.9;
         }
 
-        /* --- COMMAND LINES --- */
+        /* --- COMMAND LINES & ACCORDION OUTPUT --- */
         .line {
-            margin-bottom: 12px;
+            margin-bottom: 6px;
         }
 
         .line .prompt {
@@ -145,26 +144,131 @@
             transition: 0.3s;
             padding: 2px 8px;
             border-radius: 4px;
-            border: 1px dashed transparent;
         }
 
         .cmd:hover {
             background: rgba(0, 255, 204, 0.1);
             color: #00ffcc;
-            border-color: #00ffcc;
         }
 
-        .link-desc {
+        .output {
+            color: #b0c4de;
+            padding-left: 20px;
+            margin: 10px 0 20px 0;
+            border-left: 2px solid #1a2a3a;
+            display: none;
+        }
+
+        .output.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .output .highlight {
+            color: #00ffcc;
+        }
+
+        /* --- SKILL BARS --- */
+        .skill-bar-wrap {
+            margin: 5px 0;
+        }
+        .skill-bar-wrap .label {
+            display: inline-block;
+            width: 140px;
+            color: #8395a7;
+        }
+        .skill-bar-wrap .bar {
+            display: inline-block;
+            width: 200px;
+            height: 6px;
+            background: #1a2a3a;
+            border-radius: 4px;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+        .skill-bar-wrap .bar .fill {
+            height: 100%;
+            background: #00ffcc;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+        }
+
+        /* --- PROJECT CARDS --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .project-card {
+            background: #0d1421;
+            border: 1px solid #1a2a3a;
+            padding: 20px;
+            border-radius: 8px;
+            transition: 0.4s;
+        }
+
+        .project-card:hover {
+            border-color: #00ffcc;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.05);
+            transform: translateY(-3px);
+        }
+
+        .project-card h3 {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .project-card .tags {
             color: #576574;
+            font-size: 0.8rem;
+            margin: 8px 0;
+        }
+        .project-card .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 4px 16px;
+            border: 1px solid #00ffcc;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #00ffcc;
+            transition: 0.3s;
+        }
+        .project-card .btn:hover {
+            background: #00ffcc;
+            color: #0a0e17;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+        }
+
+        /* --- CERT BADGES --- */
+        .cert-badge {
+            display: inline-block;
+            background: #0d1421;
+            border: 1px solid #1a2a3a;
+            padding: 6px 18px;
+            border-radius: 30px;
             font-size: 0.85rem;
-            margin-left: 10px;
+            margin: 4px 6px 4px 0;
+            transition: 0.3s;
+            color: #b0c4de;
+        }
+        .cert-badge:hover {
+            border-color: #00ffcc;
+            color: #fff;
+        }
+        .cert-badge i {
+            color: #f1c40f;
+            margin-right: 8px;
         }
 
         /* --- SOCIAL ICONS --- */
         .social-icons {
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid #1a2a3a;
+            margin-top: 15px;
         }
         .social-icons a {
             display: inline-block;
@@ -189,11 +293,11 @@
             margin-top: 20px;
         }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 700px) {
             .terminal-body { padding: 20px; }
             .ascii { font-size: 0.45rem; }
-            .link-desc { display: block; margin-left: 0; margin-top: 4px; }
+            .skill-bar-wrap .bar { width: 120px; }
+            .project-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -201,10 +305,9 @@
 
 <div class="container">
 
-    <!-- ===== TERMINAL ===== -->
     <div class="terminal">
 
-        <!-- Header -->
+        <!-- Terminal Header -->
         <div class="terminal-header">
             <span class="dots dot-red"></span>
             <span class="dots dot-yellow"></span>
@@ -212,7 +315,6 @@
             <span class="title">~/portfolio — zsh — 80×24</span>
         </div>
 
-        <!-- Body -->
         <div class="terminal-body">
 
             <!-- ASCII ART -->
@@ -224,54 +326,83 @@
    |_| |_||_| |_||_| |_||_| |_||_| |_||_| |_|
             </div>
 
+            <!-- PROMPT LINE -->
             <div class="line">
                 <span class="prompt">┌──(<span class="glow">cyber@portfolio</span>)─[~]</span>
             </div>
 
-            <!-- LINK 1: About Page / Resume -->
+            <!-- 1. ABOUT SECTION -->
             <div class="line">
-                <span class="prompt">└─$</span> 
-                <span class="cmd" onclick="openLink('https://github.com/YOUR_USERNAME')">./about.sh</span>
-                <span class="link-desc"># View personal bio & background</span>
+                <span class="prompt">└─$</span> <span class="cmd" onclick="toggleOutput('about')">./about.sh</span>
+            </div>
+            <div id="about" class="output">
+                <p><span class="highlight">>></span> Hi! I'm <strong style="color:#fff;">Your Name</strong>, a Cybersecurity Analyst & Engineer.</p>
+                <p><span class="highlight">>></span> Passionate about: <span class="glow">SOC Analysis</span> · <span class="glow">SIEM Engineering</span> · <span class="glow">Incident Response</span></p>
+                <p><span class="highlight">>></span> Resume Link: <a href="YOUR_RESUME_LINK_HERE" target="_blank">[Download CV PDF]</a></p>
             </div>
 
-            <!-- LINK 2: Skills / Certifications -->
-            <div class="line">
-                <span class="prompt">└─$</span> 
-                <span class="cmd" onclick="openLink('https://www.credly.com')">./skills_and_certs.sh</span>
-                <span class="link-desc"># View verified technical skills & badges</span>
+            <!-- 2. SKILLS SECTION -->
+            <div class="line" style="margin-top:15px;">
+                <span class="prompt">└─$</span> <span class="cmd" onclick="toggleOutput('skills')">./skills.sh</span>
+            </div>
+            <div id="skills" class="output">
+                <p><span class="highlight">[Security Operations]</span></p>
+                <div class="skill-bar-wrap"><span class="label">Splunk / Elastic</span> <span class="bar"><span class="fill" style="width:88%;"></span></span> 88%</div>
+                <div class="skill-bar-wrap"><span class="label">Wireshark / Nmap</span> <span class="bar"><span class="fill" style="width:85%;"></span></span> 85%</div>
+                <div class="skill-bar-wrap"><span class="label">Linux Hardening</span> <span class="bar"><span class="fill" style="width:90%;"></span></span> 90%</div>
+                <br />
+                <p><span class="highlight">[Programming & Tools]</span></p>
+                <div class="skill-bar-wrap"><span class="label">Python</span> <span class="bar"><span class="fill" style="width:80%;"></span></span> 80%</div>
+                <div class="skill-bar-wrap"><span class="label">Bash Scripting</span> <span class="bar"><span class="fill" style="width:85%;"></span></span> 85%</div>
             </div>
 
-            <!-- LINK 3: Projects Repository -->
-            <div class="line">
-                <span class="prompt">└─$</span> 
-                <span class="cmd" onclick="openLink('https://github.com/YOUR_USERNAME?tab=repositories')">./projects.sh</span>
-                <span class="link-desc"># Open security tools & home lab repos</span>
+            <!-- 3. PROJECTS SECTION (Links inside the cards open out) -->
+            <div class="line" style="margin-top:15px;">
+                <span class="prompt">└─$</span> <span class="cmd" onclick="toggleOutput('projects')">./projects.sh</span>
+            </div>
+            <div id="projects" class="output">
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3>🔍 Network Scanner</h3>
+                        <div class="tags">Python · Scapy · Nmap</div>
+                        <p style="font-size:0.9rem; color:#8395a7;">Port scanner & service detector for network recon.</p>
+                        <!-- LINK YOUR GITHUB REPO HERE -->
+                        <a href="https://github.com/YOUR_USERNAME/PROJECT_1" target="_blank" class="btn">View Repo →</a>
+                    </div>
+                    <div class="project-card">
+                        <h3>🛡️ Home Lab SIEM</h3>
+                        <div class="tags">Elastic · Security · Sysmon</div>
+                        <p style="font-size:0.9rem; color:#8395a7;">Real-time threat monitoring lab with custom alert rules.</p>
+                        <!-- LINK YOUR GITHUB REPO HERE -->
+                        <a href="https://github.com/YOUR_USERNAME/PROJECT_2" target="_blank" class="btn">View Repo →</a>
+                    </div>
+                </div>
             </div>
 
-            <!-- LINK 4: Writeups / Blog -->
-            <div class="line">
-                <span class="prompt">└─$</span> 
-                <span class="cmd" onclick="openLink('https://tryhackme.com')">./writeups.sh</span>
-                <span class="link-desc"># Read CTF walkthroughs & research write-ups</span>
+            <!-- 4. CERTIFICATIONS SECTION -->
+            <div class="line" style="margin-top:15px;">
+                <span class="prompt">└─$</span> <span class="cmd" onclick="toggleOutput('certs')">./certs.sh</span>
+            </div>
+            <div id="certs" class="output">
+                <!-- Put your Credly or verification links in href -->
+                <a href="YOUR_CREDLY_LINK" target="_blank" class="cert-badge"><i class="fas fa-shield-alt"></i> CompTIA Security+</a>
+                <a href="YOUR_CREDLY_LINK" target="_blank" class="cert-badge"><i class="fas fa-network-wired"></i> Google Cybersecurity Professional</a>
             </div>
 
-            <!-- LINK 5: Contact / Email -->
-            <div class="line">
-                <span class="prompt">└─$</span> 
-                <span class="cmd" onclick="openLink('mailto:your-email@example.com')">./contact.sh</span>
-                <span class="link-desc"># Send an encrypted email / message</span>
+            <!-- 5. CONTACT SECTION -->
+            <div class="line" style="margin-top:15px;">
+                <span class="prompt">└─$</span> <span class="cmd" onclick="toggleOutput('contact')">./contact.sh</span>
+            </div>
+            <div id="contact" class="output">
+                <p><span class="highlight">📧</span> email@example.com</p>
+                <div class="social-icons">
+                    <a href="https://github.com/YOUR_USERNAME" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/YOUR_USERNAME" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://tryhackme.com/p/YOUR_USERNAME" target="_blank"><i class="fas fa-shield-alt"></i></a>
+                </div>
             </div>
 
-            <!-- SOCIAL ICONS LINKING DIRECTLY -->
-            <div class="social-icons">
-                <a href="https://github.com/YOUR_USERNAME" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://tryhackme.com/p/YOUR_USERNAME" target="_blank" title="TryHackMe"><i class="fas fa-shield-alt"></i></a>
-                <a href="mailto:your-email@example.com" title="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-
-            <!-- Blinking cursor -->
+            <!-- Blinking cursor line -->
             <div class="line" style="margin-top:20px;">
                 <span class="prompt">└─$</span> <span class="blink" style="background:#00ffcc; display:inline-block; width:10px; height:20px; vertical-align:middle;"></span>
             </div>
@@ -279,22 +410,31 @@
         </div>
     </div>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- FOOTER -->
     <div class="footer">
-        <p>&copy; 2026 Your Name · Cybersecurity Portfolio · Hosted on GitHub Pages</p>
+        <p>&copy; 2026 Your Name · Cybersecurity Portfolio</p>
     </div>
 
 </div>
 
 <script>
-    // Redirect function to open links in a new tab
-    function openLink(url) {
-        if (url && url !== '#') {
-            window.open(url, '_blank');
-        } else {
-            alert('Please configure a valid URL for this section!');
+    // Opens the clicked section directly UNDER the command line inside the terminal
+    function toggleOutput(id) {
+        var el = document.getElementById(id);
+        if (el) {
+            el.classList.toggle('show');
         }
     }
+
+    // Auto-open about section when page loads
+    window.onload = function() {
+        setTimeout(function() {
+            var about = document.getElementById('about');
+            if (about) {
+                about.classList.add('show');
+            }
+        }, 300);
+    };
 </script>
 
 </body>
