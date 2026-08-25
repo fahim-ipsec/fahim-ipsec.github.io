@@ -1,26 +1,44 @@
+# 🛡️ fahim-ipsec — Cybersecurity Portfolio
 
-<h3> Hi!  I'm Omar Fahim </h3>
-<h2>Cybersecurity Enthusiast | Security Investigator | Security Researcher</h2>
+Welcome to my interactive cybersecurity portfolio hosted on **GitHub Pages**. Designed with a dark terminal aesthetic, this site showcases my home lab architecture, penetration testing write-ups, security tools, and certifications.
+
+🌐 **Live Site:** [https://YOUR_GITHUB_USERNAME.github.io](https://YOUR_GITHUB_USERNAME.github.io)
+
+---
+
+## ⚡ Features & Layout
+
+- **Interactive Terminal UI:** Accordion dropdown menus built with vanilla HTML, CSS, and JavaScript.
+- **About & Metrics:** Overview of my security journey, core stats, and focus areas.
+- **Skills & Badges:** Interactive tags covering Blue Team (Splunk, Elastic SIEM, Wireshark) and Red Team (Nmap, Burp Suite, Metasploit) tools.
+- **Interactive Timelines:** Dual visual timelines for Work Experience and Academic Education.
+- **Featured Projects & Labs:** Grid showcases of custom Python security scripts, home labs, and CTF write-ups.
+- **Certifications & Awards:** Verified security credentials (Security+, Google Cybersecurity, etc.).
+- **Write-ups / Blog:** Articles covering vulnerability analysis, SQLi exploitation, and home lab setup.
+
+---
+
+## 🛠️ Built With
+
+* **HTML5** — Semantic layout structure
+* **CSS3** — Custom neon-cyber theme & responsive grid system
+* **JavaScript (ES6)** — Interactivity & section dropdown accordion logic
+* **FontAwesome** — Security & technical icon kit
+
+---
+
+## 🚀 How to Run Locally
+
+1. Clone this repository:
+   ```bash
+   git clone [https://github.com/YOUR_USERNAME/YOUR_USERNAME.github.io.git](https://github.com/YOUR_USERNAME/YOUR_USERNAME.github.io.git)
 
 
+   📬 Contact & Links
+Email: fahim.ipsec@example.com
 
-### Summary
+LinkedIn: linkedin.com/in/YOUR_USERNAME
 
-I am a Cybersecurity Enthusiast. My passion lies in researching both cyber and physical security to understand evolving threats. I believe in raising awareness to prevent incidents—whether digital or physical. 
+TryHackMe: @fahim-ipsec
 
-Though I consider myself a lifelong student (always learning from the world around me), I stand firmly by two principles: honesty is my core value, and helping others is in my DNA.
-
-<div align="left">
-  <a href="https://medium.com/@omarfahim" rel="noopener noreferrer" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Medium&logo=medium&label=&color=12100E&logoColor=white&labelColor=&style=for-the-badge" height="27" alt="medium logo"  />
-  </a>
-    <a href="https://dev.to/fahimomar" target="_blank">
-    <img src="https://img.shields.io/badge/Dev.to-000000?style=for-the-badge&logo=dev.to&logoColor=white" height="27" alt="dev.to logo" />
-    </a>
-    <a href="https://www.linkedin.com/in/muhammad-omar-fahim-bd?" target="_blank">
-    <img src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg" height="27" alt="LinkedIn Logo" />
-    </a>
-   <a href="www.credential.net/profile/muhammadomarfarhadfahim489292/">
-    <img src="https://www.credential.net/assets/themes/credential.net/images/accredible_credential_net_logo.svg" alt="Credential.net" height="27" />
-    </a>
-</div>
+© 2026 Fahim · Built for GitHub Pages
