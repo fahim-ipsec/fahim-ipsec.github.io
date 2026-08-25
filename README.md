@@ -2,7 +2,7 @@
 
 Welcome to my interactive cybersecurity portfolio hosted on **GitHub Pages**. Designed with a dark terminal aesthetic, this site showcases my home lab architecture, penetration testing write-ups, security tools, and certifications.
 
-🌐 **Live Site:** [https://YOUR_GITHUB_USERNAME.github.io](https://YOUR_GITHUB_USERNAME.github.io)
+🌐 **Live Site:** [https://fahim-ipsec.github.io/)
 
 ---
 
@@ -27,20 +27,11 @@ Welcome to my interactive cybersecurity portfolio hosted on **GitHub Pages**. De
 
 ---
 
-## 🚀 How to Run Locally
-
-1. Clone this repository:
-   ```bash
-   git clone [https://github.com/YOUR_USERNAME/YOUR_USERNAME.github.io.git](https://github.com/YOUR_USERNAME/YOUR_USERNAME.github.io.git)
-
-
  
 
 ## 📬 Contact & Links
-Email: fahim.ipsec@example.com
-
-LinkedIn: linkedin.com/in/YOUR_USERNAME
-
-TryHackMe: @fahim-ipsec
+Email: 
+LinkedIn: 
+TryHackMe: 
 
 © 2026 Fahim · Built for GitHub Pages
