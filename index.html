@@ -132,7 +132,7 @@
 
         /* --- COMMAND LINES --- */
         .line {
-            margin-bottom: 6px;
+            margin-bottom: 12px;
         }
 
         .line .prompt {
@@ -145,148 +145,26 @@
             transition: 0.3s;
             padding: 2px 8px;
             border-radius: 4px;
+            border: 1px dashed transparent;
         }
 
         .cmd:hover {
             background: rgba(0, 255, 204, 0.1);
             color: #00ffcc;
-        }
-
-        .output {
-            color: #b0c4de;
-            padding-left: 20px;
-            margin: 10px 0 20px 0;
-            border-left: 2px solid #1a2a3a;
-            display: none;
-        }
-
-        .output.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .output .highlight {
-            color: #00ffcc;
-        }
-
-        /* --- SKILL BARS (Terminal Style) --- */
-        .skill-bar-wrap {
-            margin: 5px 0;
-        }
-        .skill-bar-wrap .label {
-            display: inline-block;
-            width: 140px;
-            color: #8395a7;
-        }
-        .skill-bar-wrap .bar {
-            display: inline-block;
-            width: 200px;
-            height: 6px;
-            background: #1a2a3a;
-            border-radius: 4px;
-            overflow: hidden;
-            vertical-align: middle;
-        }
-        .skill-bar-wrap .bar .fill {
-            height: 100%;
-            background: #00ffcc;
-            border-radius: 4px;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
-        }
-
-        /* --- PROJECT CARDS (Terminal Style) --- */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 15px;
-        }
-
-        .project-card {
-            background: #0d1421;
-            border: 1px solid #1a2a3a;
-            padding: 20px;
-            border-radius: 8px;
-            transition: 0.4s;
-        }
-
-        .project-card:hover {
             border-color: #00ffcc;
-            box-shadow: 0 0 30px rgba(0, 255, 204, 0.05);
-            transform: translateY(-3px);
         }
 
-        .project-card h3 {
-            color: #fff;
-            font-size: 1.1rem;
-        }
-        .project-card .tags {
+        .link-desc {
             color: #576574;
-            font-size: 0.8rem;
-            margin: 8px 0;
-        }
-        .project-card .btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 4px 16px;
-            border: 1px solid #00ffcc;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #00ffcc;
-            transition: 0.3s;
-        }
-        .project-card .btn:hover {
-            background: #00ffcc;
-            color: #0a0e17;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
-        }
-
-        /* --- BLOG ITEMS --- */
-        .blog-item {
-            border-bottom: 1px solid #1a2a3a;
-            padding: 12px 0;
-        }
-        .blog-item:last-child {
-            border-bottom: none;
-        }
-        .blog-item .date {
-            color: #576574;
-            font-size: 0.8rem;
-        }
-        .blog-item .title {
-            color: #fff;
-        }
-        .blog-item .title:hover {
-            color: #00ffcc;
-        }
-
-        /* --- CERT BADGES --- */
-        .cert-badge {
-            display: inline-block;
-            background: #0d1421;
-            border: 1px solid #1a2a3a;
-            padding: 6px 18px;
-            border-radius: 30px;
             font-size: 0.85rem;
-            margin: 4px 6px 4px 0;
-            transition: 0.3s;
-        }
-        .cert-badge:hover {
-            border-color: #00ffcc;
-        }
-        .cert-badge i {
-            color: #f1c40f;
-            margin-right: 8px;
+            margin-left: 10px;
         }
 
         /* --- SOCIAL ICONS --- */
         .social-icons {
-            margin-top: 15px;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #1a2a3a;
         }
         .social-icons a {
             display: inline-block;
@@ -315,8 +193,7 @@
         @media (max-width: 700px) {
             .terminal-body { padding: 20px; }
             .ascii { font-size: 0.45rem; }
-            .skill-bar-wrap .bar { width: 120px; }
-            .project-grid { grid-template-columns: 1fr; }
+            .link-desc { display: block; margin-left: 0; margin-top: 4px; }
         }
     </style>
 </head>
@@ -347,156 +224,77 @@
    |_| |_||_| |_||_| |_||_| |_||_| |_||_| |_|
             </div>
 
-            <!-- LINE 1: Intro -->
             <div class="line">
                 <span class="prompt">┌──(<span class="glow">cyber@portfolio</span>)─[~]</span>
             </div>
+
+            <!-- LINK 1: About Page / Resume -->
             <div class="line">
-                <span class="prompt">└─$</span> <span class="cmd" onclick="toggleOutput('about')">./about.sh</span>
-            </div>
-            <div id="about" class="output">
-                <p><span class="highlight">>></span> Hi! I'm <strong style="color:#fff;">[Your Name]</strong>, a cybersecurity enthusiast and developer.</p>
-                <p><span class="highlight">>></span> Passionate about: <span class="glow">Penetration Testing</span> · <span class="glow">Network Security</span> · <span class="glow">Secure Coding</span></p>
-                <p><span class="highlight">>></span> Currently learning: Advanced Exploitation · Cloud Security</p>
-                <p><span class="highlight">>></span> Fun fact: I crack WPA2 handshakes ☕ and brew coffee simultaneously</p>
+                <span class="prompt">└─$</span> 
+                <span class="cmd" onclick="openLink('https://github.com/YOUR_USERNAME')">./about.sh</span>
+                <span class="link-desc"># View personal bio & background</span>
             </div>
 
-            <!-- LINE 2: Skills -->
-            <div class="line" style="margin-top:15px;">
-                <span class="prompt">└─$</span> <span class="cmd" onclick="toggleOutput('skills')">./skills.sh</span>
-            </div>
-            <div id="skills" class="output">
-                <p><span class="highlight">[Security Tools]</span></p>
-                <div class="skill-bar-wrap"><span class="label">Nmap / Wireshark</span> <span class="bar"><span class="fill" style="width:88%;"></span></span> 88%</div>
-                <div class="skill-bar-wrap"><span class="label">Burp Suite</span> <span class="bar"><span class="fill" style="width:78%;"></span></span> 78%</div>
-                <div class="skill-bar-wrap"><span class="label">Metasploit</span> <span class="bar"><span class="fill" style="width:72%;"></span></span> 72%</div>
-                <div class="skill-bar-wrap"><span class="label">Linux / Bash</span> <span class="bar"><span class="fill" style="width:90%;"></span></span> 90%</div>
-                <br />
-                <p><span class="highlight">[Development]</span></p>
-                <div class="skill-bar-wrap"><span class="label">Python</span> <span class="bar"><span class="fill" style="width:85%;"></span></span> 85%</div>
-                <div class="skill-bar-wrap"><span class="label">JavaScript</span> <span class="bar"><span class="fill" style="width:75%;"></span></span> 75%</div>
-                <div class="skill-bar-wrap"><span class="label">HTML / CSS</span> <span class="bar"><span class="fill" style="width:90%;"></span></span> 90%</div>
-                <div class="skill-bar-wrap"><span class="label">Git / GitHub</span> <span class="bar"><span class="fill" style="width:88%;"></span></span> 88%</div>
+            <!-- LINK 2: Skills / Certifications -->
+            <div class="line">
+                <span class="prompt">└─$</span> 
+                <span class="cmd" onclick="openLink('https://www.credly.com')">./skills_and_certs.sh</span>
+                <span class="link-desc"># View verified technical skills & badges</span>
             </div>
 
-            <!-- LINE 3: Projects -->
-            <div class="line" style="margin-top:15px;">
-                <span class="prompt">└─$</span> <span class="cmd" onclick="toggleOutput('projects')">./projects.sh</span>
-            </div>
-            <div id="projects" class="output">
-                <div class="project-grid">
-                    <div class="project-card">
-                        <h3>🔍 Network Scanner</h3>
-                        <div class="tags">Python · Scapy · Nmap</div>
-                        <p style="font-size:0.9rem; color:#8395a7;">Port scanner &amp; service detector for network recon.</p>
-                        <a href="#" class="btn">View →</a>
-                    </div>
-                    <div class="project-card">
-                        <h3>🛡️ SIEM Dashboard</h3>
-                        <div class="tags">ELK · Kibana · Logstash</div>
-                        <p style="font-size:0.9rem; color:#8395a7;">Security dashboard for real-time log analysis.</p>
-                        <a href="#" class="btn">Explore →</a>
-                    </div>
-                    <div class="project-card">
-                        <h3>💻 CTF Write-up Template</h3>
-                        <div class="tags">Markdown · GitHub</div>
-                        <p style="font-size:0.9rem; color:#8395a7;">Structured template for documenting exploits.</p>
-                        <a href="#" class="btn">Get →</a>
-                    </div>
-                </div>
+            <!-- LINK 3: Projects Repository -->
+            <div class="line">
+                <span class="prompt">└─$</span> 
+                <span class="cmd" onclick="openLink('https://github.com/YOUR_USERNAME?tab=repositories')">./projects.sh</span>
+                <span class="link-desc"># Open security tools & home lab repos</span>
             </div>
 
-            <!-- LINE 4: Certifications -->
-            <div class="line" style="margin-top:15px;">
-                <span class="prompt">└─$</span> <span class="cmd" onclick="toggleOutput('certs')">./certs.sh</span>
-            </div>
-            <div id="certs" class="output">
-                <span class="cert-badge"><i class="fas fa-shield-alt"></i> Google Cybersecurity</span>
-                <span class="cert-badge"><i class="fas fa-network-wired"></i> Cisco Networking Basics</span>
-                <span class="cert-badge"><i class="fas fa-lock"></i> Ethical Hacking (Coursera)</span>
-                <span class="cert-badge"><i class="fas fa-code"></i> Responsive Web Design (FreeCodeCamp)</span>
+            <!-- LINK 4: Writeups / Blog -->
+            <div class="line">
+                <span class="prompt">└─$</span> 
+                <span class="cmd" onclick="openLink('https://tryhackme.com')">./writeups.sh</span>
+                <span class="link-desc"># Read CTF walkthroughs & research write-ups</span>
             </div>
 
-            <!-- LINE 5: Blog/Writeups -->
-            <div class="line" style="margin-top:15px;">
-                <span class="prompt">└─$</span> <span class="cmd" onclick="toggleOutput('blog')">./blog.sh</span>
-            </div>
-            <div id="blog" class="output">
-                <div class="blog-item">
-                    <div class="date">📅 2026-03-15</div>
-                    <a href="#" class="title">SQL Injection on TryHackMe — Step-by-Step</a>
-                </div>
-                <div class="blog-item">
-                    <div class="date">📅 2026-03-10</div>
-                    <a href="#" class="title">Privilege Escalation: Linux Kernel Exploit</a>
-                </div>
-                <div class="blog-item">
-                    <div class="date">📅 2026-03-05</div>
-                    <a href="#" class="title">Setting Up a Home Lab for Pen Testing</a>
-                </div>
+            <!-- LINK 5: Contact / Email -->
+            <div class="line">
+                <span class="prompt">└─$</span> 
+                <span class="cmd" onclick="openLink('mailto:your-email@example.com')">./contact.sh</span>
+                <span class="link-desc"># Send an encrypted email / message</span>
             </div>
 
-            <!-- LINE 6: Contact -->
-            <div class="line" style="margin-top:15px;">
-                <span class="prompt">└─$</span> <span class="cmd" onclick="toggleOutput('contact')">./contact.sh</span>
-            </div>
-            <div id="contact" class="output">
-                <p><span class="highlight">📧</span> hello@yourdomain.com</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-                <p style="margin-top:10px; color:#576574; font-size:0.85rem;">
-                    <span class="glow">$</span> Signed by [Your Name] — <span class="glow">[SECURE]</span>
-                </p>
+            <!-- SOCIAL ICONS LINKING DIRECTLY -->
+            <div class="social-icons">
+                <a href="https://github.com/YOUR_USERNAME" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://tryhackme.com/p/YOUR_USERNAME" target="_blank" title="TryHackMe"><i class="fas fa-shield-alt"></i></a>
+                <a href="mailto:your-email@example.com" title="Email"><i class="fas fa-envelope"></i></a>
             </div>
 
-            <!-- LINE 7: Blinking cursor -->
+            <!-- Blinking cursor -->
             <div class="line" style="margin-top:20px;">
-                <span class="prompt">└─$</span> <span class="blink" style="background:#00ffcc; display:inline-block; width:10px; height:20px;"></span>
+                <span class="prompt">└─$</span> <span class="blink" style="background:#00ffcc; display:inline-block; width:10px; height:20px; vertical-align:middle;"></span>
             </div>
 
         </div>
-        <!-- end terminal-body -->
     </div>
-    <!-- end terminal -->
 
     <!-- ===== FOOTER ===== -->
     <div class="footer">
-        <p>&copy; 2026 [Your Name] · Built with <i class="fas fa-heart" style="color:#00ffcc;"></i> and lots of coffee · v2.0</p>
+        <p>&copy; 2026 Your Name · Cybersecurity Portfolio · Hosted on GitHub Pages</p>
     </div>
 
 </div>
-<!-- end container -->
 
 <script>
-    // Toggle output visibility on command click
-    function toggleOutput(id) {
-        var el = document.getElementById(id);
-        if (el) {
-            // Close all other outputs
-            var allOutputs = document.querySelectorAll('.output');
-            allOutputs.forEach(function(out) {
-                if (out.id !== id) {
-                    out.classList.remove('show');
-                }
-            });
-            // Toggle this one
-            el.classList.toggle('show');
+    // Redirect function to open links in a new tab
+    function openLink(url) {
+        if (url && url !== '#') {
+            window.open(url, '_blank');
+        } else {
+            alert('Please configure a valid URL for this section!');
         }
     }
-
-    // Auto-open first section (about) on load
-    window.onload = function() {
-        setTimeout(function() {
-            var about = document.getElementById('about');
-            if (about) {
-                about.classList.add('show');
-            }
-        }, 500);
-    };
 </script>
 
 </body>
