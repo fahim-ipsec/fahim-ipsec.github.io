@@ -1,12 +1,454 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>My Site</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cyber Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* --- RESET & BASE (Cyber/Terminal Theme) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e17;
+            color: #b0c4de;
+            font-family: 'Courier New', monospace;
+            line-height: 1.7;
+            padding: 20px;
+        }
+
+        a {
+            color: #00ffcc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-shadow: 0 0 10px #00ffcc;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* --- TERMINAL HEADER --- */
+        .terminal-header {
+            background: #0f1a2b;
+            padding: 20px 25px;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 2px solid #00ffcc;
+            font-size: 0.9rem;
+            color: #8395a7;
+        }
+        .terminal-header .dots {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #28c840; }
+
+        /* --- HERO / ASCII --- */
+        .hero {
+            background: #0f1a2b;
+            padding: 40px 25px;
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.05);
+        }
+
+        .ascii-art {
+            color: #00ffcc;
+            font-size: 0.7rem;
+            line-height: 1.2;
+            white-space: pre;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+        }
+        .hero h1 span {
+            color: #00ffcc;
+        }
+
+        .hero .tagline {
+            font-size: 1.1rem;
+            color: #8395a7;
+            margin: 10px 0;
+        }
+
+        .prompt {
+            color: #00ffcc;
+        }
+
+        /* --- SECTION STYLES --- */
+        section {
+            background: #0f1a2b;
+            padding: 30px 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            border-left: 3px solid #00ffcc;
+        }
+
+        section h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        section h2 i {
+            color: #00ffcc;
+        }
+
+        /* --- ABOUT --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        @media (max-width: 700px) {
+            .about-grid { grid-template-columns: 1fr; }
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            text-align: center;
+        }
+        .stat-item {
+            background: #132237;
+            padding: 15px 10px;
+            border-radius: 8px;
+        }
+        .stat-item .number {
+            color: #00ffcc;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        .stat-item .label {
+            font-size: 0.8rem;
+            color: #8395a7;
+        }
+
+        /* --- SKILL BARS --- */
+        .skill-group {
+            margin-bottom: 20px;
+        }
+        .skill-group h4 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .skill-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .skill-item .skill-name {
+            width: 130px;
+            font-size: 0.9rem;
+        }
+        .skill-item .skill-bar {
+            flex: 1;
+            height: 10px;
+            background: #1d3557;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .skill-item .skill-bar .fill {
+            height: 100%;
+            background: #00ffcc;
+            border-radius: 10px;
+            width: 0%;
+        }
+
+        /* --- PROJECT CARDS --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .project-card {
+            background: #132237;
+            padding: 20px;
+            border-radius: 8px;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+        .project-card:hover {
+            border-color: #00ffcc;
+            transform: translateY(-3px);
+        }
+        .project-card h3 {
+            color: #fff;
+        }
+        .project-card .btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 6px 18px;
+            border: 1px solid #00ffcc;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #00ffcc;
+            transition: 0.3s;
+        }
+        .project-card .btn:hover {
+            background: #00ffcc;
+            color: #0a0e17;
+        }
+
+        /* --- BLOG / WRITEUPS --- */
+        .blog-item {
+            border-bottom: 1px solid #1d3557;
+            padding: 15px 0;
+        }
+        .blog-item:last-child {
+            border-bottom: none;
+        }
+        .blog-item .date {
+            color: #8395a7;
+            font-size: 0.85rem;
+        }
+        .blog-item .title {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        /* --- CONTACT / FOOTER --- */
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            align-items: center;
+        }
+        .contact-info a {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: #8395a7;
+            transition: 0.3s;
+        }
+        .contact-info a:hover {
+            color: #00ffcc;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #576574;
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
 <body>
-  <h1>Hello from fahim-ipsec.github.io</h1>
-  <script src="assets/js/main.js"></script>
+
+<div class="container">
+
+    <!-- ===== TERMINAL HEADER ===== -->
+    <div class="terminal-header">
+        <span class="dots dot-red"></span>
+        <span class="dots dot-yellow"></span>
+        <span class="dots dot-green"></span>
+        <span style="margin-left: 15px;">~/portfolio — bash — 80×24</span>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <div class="hero">
+        <div class="ascii-art">
+            <pre>
+ _   _  _   _  _   _  _   _  _   _  _   _ 
+| | | || | | || | | || | | || | | || | | |
+| |_| || |_| || |_| || |_| || |_| || |_| |
+|  _  ||  _  ||  _  ||  _  ||  _  ||  _  |
+|_| |_||_| |_||_| |_||_| |_||_| |_||_| |_|
+            </pre>
+        </div>
+
+        <h1>&gt; <span>Your Name</span></h1>
+        <div class="tagline">// <span class="prompt">Cybersecurity Enthusiast</span> | Developer | CTF Player</div>
+        <p style="margin-top: 10px; color: #8395a7;">
+            <span class="prompt">$</span> ./get_profile.sh — Building secure &amp; creative digital experiences
+        </p>
+        <p style="margin-top: 5px;">
+            <span class="prompt">$</span> cat contact.txt · GitHub: <a href="#">github.com/yourusername</a>
+        </p>
+    </div>
+
+    <!-- ===== ABOUT ===== -->
+    <section>
+        <h2><i class="fas fa-user-astronaut"></i> About Me</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>Hi! I'm <strong style="color:#fff;">[Your Name]</strong>, a cybersecurity enthusiast and developer passionate about ethical hacking, network security, and building secure web applications.</p>
+                <p>I love solving CTF challenges, writing security tools, and learning about vulnerabilities to help make the digital world safer. Currently diving deep into penetration testing and secure coding.</p>
+                <p><span class="prompt">$</span> <span style="color:#fff;">Fun fact:</span> I can crack a WPA2 handshake and brew coffee at the same time ☕</p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <div class="number">3+</div>
+                    <div class="label">Years Learning</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">15+</div>
+                    <div class="label">CTF Machines</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">∞</div>
+                    <div class="label">Cups of Coffee</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section>
+        <h2><i class="fas fa-terminal"></i> Skills</h2>
+
+        <div class="skill-group">
+            <h4>Security &amp; Tools</h4>
+            <div class="skill-item">
+                <span class="skill-name">Nmap / Wireshark</span>
+                <div class="skill-bar"><div class="fill" style="width:85%;"></div></div>
+            </div>
+            <div class="skill-item">
+                <span class="skill-name">Burp Suite</span>
+                <div class="skill-bar"><div class="fill" style="width:75%;"></div></div>
+            </div>
+            <div class="skill-item">
+                <span class="skill-name">Metasploit</span>
+                <div class="skill-bar"><div class="fill" style="width:70%;"></div></div>
+            </div>
+            <div class="skill-item">
+                <span class="skill-name">Linux / Bash</span>
+                <div class="skill-bar"><div class="fill" style="width:90%;"></div></div>
+            </div>
+        </div>
+
+        <div class="skill-group">
+            <h4>Development</h4>
+            <div class="skill-item">
+                <span class="skill-name">Python</span>
+                <div class="skill-bar"><div class="fill" style="width:85%;"></div></div>
+            </div>
+            <div class="skill-item">
+                <span class="skill-name">JavaScript</span>
+                <div class="skill-bar"><div class="fill" style="width:75%;"></div></div>
+            </div>
+            <div class="skill-item">
+                <span class="skill-name">HTML / CSS</span>
+                <div class="skill-bar"><div class="fill" style="width:90%;"></div></div>
+            </div>
+            <div class="skill-item">
+                <span class="skill-name">Git / GitHub</span>
+                <div class="skill-bar"><div class="fill" style="width:85%;"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section>
+        <h2><i class="fas fa-code"></i> Featured Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>🔍 Network Scanner</h3>
+                <p style="font-size:0.9rem; margin:8px 0;">Python script for scanning open ports and services on a network.</p>
+                <p style="font-size:0.8rem; color:#8395a7;">Python, Scapy</p>
+                <a href="#" class="btn">View on GitHub →</a>
+            </div>
+            <div class="project-card">
+                <h3>🛡️ SIEM Dashboard</h3>
+                <p style="font-size:0.9rem; margin:8px 0;">Simple security dashboard for log analysis using ELK Stack.</p>
+                <p style="font-size:0.8rem; color:#8395a7;">ELK, Kibana</p>
+                <a href="#" class="btn">Explore →</a>
+            </div>
+            <div class="project-card">
+                <h3>💻 CTF Write-up Template</h3>
+                <p style="font-size:0.9rem; margin:8px 0;">Markdown template for documenting CTF challenges and exploits.</p>
+                <p style="font-size:0.8rem; color:#8395a7;">Markdown, GitHub</p>
+                <a href="#" class="btn">Get Notified →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOG / WRITEUPS ===== -->
+    <section>
+        <h2><i class="fas fa-pen-fancy"></i> Latest Write-ups</h2>
+        <div class="blog-item">
+            <div class="date">March 15, 2026</div>
+            <div class="title">SQL Injection on TryHackMe — Step-by-Step</div>
+            <a href="#" style="font-size:0.9rem;">Read More →</a>
+        </div>
+        <div class="blog-item">
+            <div class="date">March 10, 2026</div>
+            <div class="title">Privilege Escalation: Linux Kernel Exploit</div>
+            <a href="#" style="font-size:0.9rem;">Read More →</a>
+        </div>
+        <div class="blog-item">
+            <div class="date">March 5, 2026</div>
+            <div class="title">Setting Up a Home Lab for Pen Testing</div>
+            <a href="#" style="font-size:0.9rem;">Read More →</a>
+        </div>
+    </section>
+
+    <!-- ===== CERTIFICATIONS ===== -->
+    <section>
+        <h2><i class="fas fa-certificate"></i> Certifications</h2>
+        <div style="display:flex; flex-wrap:wrap; gap:15px;">
+            <span style="background:#132237; padding:8px 20px; border-radius:30px; border:1px solid #00ffcc;">
+                <i class="fas fa-shield-alt" style="color:#00ffcc;"></i> Google Cybersecurity
+            </span>
+            <span style="background:#132237; padding:8px 20px; border-radius:30px; border:1px solid #00ffcc;">
+                <i class="fas fa-network-wired" style="color:#00ffcc;"></i> Cisco Networking Basics
+            </span>
+            <span style="background:#132237; padding:8px 20px; border-radius:30px; border:1px solid #00ffcc;">
+                <i class="fas fa-lock" style="color:#00ffcc;"></i> Ethical Hacking (Coursera)
+            </span>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section>
+        <h2><i class="fas fa-envelope"></i> Get In Touch</h2>
+        <div class="contact-info">
+            <div>
+                <span class="prompt">$</span> echo "hello@yourdomain.com"
+                <br />
+                <span style="color:#8395a7; font-size:0.9rem;">// Preferred contact</span>
+            </div>
+            <div>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <p style="margin-top:15px; color:#576574;">
+            <span class="prompt">$</span> Signed by yourusername — <span style="color:#00ffcc;">[SECURE]</span>
+        </p>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>&copy; 2026 Your Name. Built with <i class="fas fa-heart" style="color:#00ffcc;"></i> and lots of coffee.</p>
+    </footer>
+
+</div>
+<!-- end container -->
+
 </body>
 </html>
