@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — Cybersecurity Profile</title>
+<style>
+  :root{
+    --bg:#f3f2ef;
+    --card:#ffffff;
+    --text:#1d2226;
+    --muted:#666666;
+    --accent:#0a66c2;
+    --accent-dark:#004182;
+    --border:#e0e0e0;
+    --tag-bg:#eef3f8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.5;
+    padding:24px 16px;
+  }
+  .container{max-width:900px;margin:0 auto;}
+
+  /* HEADER */
+  .header{
+    background:var(--card);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 1px 3px rgba(0,0,0,0.08);
+    margin-bottom:16px;
+  }
+  .banner{
+    height:140px;
+    background:linear-gradient(135deg,#0a66c2,#004182);
+  }
+  .header-body{padding:0 24px 24px;position:relative;}
+  .avatar{
+    width:120px;height:120px;border-radius:50%;
+    background:var(--accent);
+    border:4px solid #fff;
+    margin-top:-60px;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:44px;font-weight:700;
+  }
+  .name{font-size:26px;font-weight:700;margin-top:12px;}
+  .headline{font-size:16px;margin-top:4px;}
+  .location{font-size:14px;color:var(--muted);margin-top:4px;}
+  .contact{margin-top:12px;display:flex;flex-wrap:wrap;gap:12px;}
+  .contact a{
+    color:var(--accent);text-decoration:none;
+    font-size:14px;font-weight:600;
+  }
+  .contact a:hover{text-decoration:underline;}
+
+  /* STATS BAR */
+  .stats-bar{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:12px;
+    margin-bottom:16px;
+  }
+  .stat-box{
+    background:var(--card);
+    border-radius:12px;
+    padding:16px;
+    text-align:center;
+    box-shadow:0 1px 3px rgba(0,0,0,0.08);
+  }
+  .stat-number{font-size:26px;font-weight:700;color:var(--accent);}
+  .stat-label{font-size:13px;color:var(--muted);margin-top:4px;}
+
+  /* CARDS */
+  .card{
+    background:var(--card);
+    border-radius:12px;
+    padding:20px 24px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.08);
+    margin-bottom:16px;
+  }
+  .card h2{
+    font-size:18px;font-weight:700;margin-bottom:16px;
+  }
+
+  /* ENTRIES */
+  .entry{
+    display:flex;gap:14px;padding:14px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .entry:last-child{border-bottom:none;padding-bottom:0;}
+  .entry-icon{
+    width:48px;height:48px;border-radius:8px;
+    background:var(--tag-bg);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;
+  }
+  .entry-body{flex:1;min-width:0;}
+  .entry-title{font-size:16px;font-weight:600;}
+  .entry-sub{font-size:14px;color:var(--muted);margin-top:2px;}
+  .entry-meta{font-size:13px;color:var(--muted);margin-top:2px;}
+  .entry-desc{font-size:14px;margin-top:8px;}
+  .entry-link{
+    display:inline-block;margin-top:8px;
+    font-size:14px;font-weight:600;color:var(--accent);
+    text-decoration:none;word-break:break-all;
+  }
+  .entry-link:hover{text-decoration:underline;}
+
+  /* SKILLS */
+  .tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{
+    background:var(--tag-bg);color:var(--accent);
+    padding:6px 14px;border-radius:16px;
+    font-size:13px;font-weight:600;
+  }
+
+  /* ACHIEVEMENT CARDS */
+  .ach-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:12px;
+  }
+  .ach-card{
+    background:var(--tag-bg);border-radius:10px;padding:16px;
+  }
+  .ach-title{font-size:15px;font-weight:700;}
+  .ach-value{font-size:22px;font-weight:700;color:var(--accent);margin-top:6px;}
+  .ach-sub{font-size:13px;color:var(--muted);margin-top:4px;}
+  .ach-link{
+    display:inline-block;margin-top:8px;font-size:13px;
+    font-weight:600;color:var(--accent);text-decoration:none;
+  }
+  .ach-link:hover{text-decoration:underline;}
+
+  @media (max-width:600px){
+    .name{font-size:22px;}
+    .avatar{width:90px;height:90px;font-size:34px;}
+    .banner{height:100px;}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ============================================================
+       HEADER — edit these lines
+       ============================================================ -->
+  <div class="header">
+    <div class="banner"></div>
+    <div class="header-body">
+      <div class="avatar">YN</div>   <!-- your initials -->
+      <div class="name">Your Name</div>
+      <div class="headline">Network Security | SOC Analyst | AIOps</div>
+      <div class="location">City, Country</div>
+      <div class="contact">
+        <a href="mailto:email@example.com">email@example.com</a>
+        <a href="https://linkedin.com/in/yourname">LinkedIn</a>
+        <a href="https://github.com/yourname">GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       STATS BAR — edit the numbers manually
+       ============================================================ -->
+  <div class="stats-bar">
+    <div class="stat-box"><div class="stat-number">1</div><div class="stat-label">Education</div></div>
+    <div class="stat-box"><div class="stat-number">1</div><div class="stat-label">Certifications</div></div>
+    <div class="stat-box"><div class="stat-number">6</div><div class="stat-label">Skills</div></div>
+    <div class="stat-box"><div class="stat-number">1</div><div class="stat-label">Experience</div></div>
+    <div class="stat-box"><div class="stat-number">1</div><div class="stat-label">Projects</div></div>
+    <div class="stat-box"><div class="stat-number">2</div><div class="stat-label">Achievements</div></div>
+  </div>
+
+  <!-- ============================================================
+       ABOUT
+       ============================================================ -->
+  <div class="card">
+    <h2>About</h2>
+    <p style="font-size:14px;">
+      Cybersecurity professional focused on network security, SOC operations, and AIOps.
+      Passionate about threat detection, incident response, and continuous learning.
+    </p>
+  </div>
+
+  <!-- ============================================================
+       EDUCATION — copy the .entry block to add more
+       ============================================================ -->
+  <div class="card">
+    <h2>Education</h2>
+
+    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
+    <div class="entry">
+      <div class="entry-icon">🏫</div>
+      <div class="entry-body">
+        <div class="entry-title">B.S. Computer Science</div>
+        <div class="entry-sub">Example University</div>
+        <div class="entry-meta">2018 – 2022</div>
+        <div class="entry-desc">Focus areas: networking, operating systems, and information security.</div>
+      </div>
+    </div>
+    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
+
+  </div>
+
+  <!-- ============================================================
+       CERTIFICATIONS
+       ============================================================ -->
+  <div class="card">
+    <h2>Certifications</h2>
+
+    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
+    <div class="entry">
+      <div class="entry-icon">🎓</div>
+      <div class="entry-body">
+        <div class="entry-title">Cisco Splunk for AI Operations (CAIOP)</div>
+        <div class="entry-sub">Cisco / Splunk</div>
+        <div class="entry-meta">Oct 2026</div>
+        <div class="entry-desc">Applied AI/ML to IT operations data — event correlation, predictive analytics, and automated incident response.</div>
+        <a class="entry-link" href="https://www.credly.com/" target="_blank">🔗 View Credential</a>
+      </div>
+    </div>
+    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
+
+  </div>
+
+  <!-- ============================================================
+       SKILLS — copy the <span class="tag"> to add more
+       ============================================================ -->
+  <div class="card">
+    <h2>Skills</h2>
+    <div class="tags">
+      <span class="tag">Threat Hunting</span>
+      <span class="tag">Splunk SPL</span>
+      <span class="tag">Incident Response</span>
+      <span class="tag">Network Security</span>
+      <span class="tag">MITRE ATT&CK</span>
+      <span class="tag">Python</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       EXPERIENCE
+       ============================================================ -->
+  <div class="card">
+    <h2>Experience</h2>
+
+    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
+    <div class="entry">
+      <div class="entry-icon">💼</div>
+      <div class="entry-body">
+        <div class="entry-title">SOC Analyst</div>
+        <div class="entry-sub">Example Company</div>
+        <div class="entry-meta">Jan 2025 – Present</div>
+        <div class="entry-desc">Monitor security alerts in Splunk, triage incidents, and escalate confirmed threats. Wrote correlation searches mapped to MITRE ATT&CK.</div>
+      </div>
+    </div>
+    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
+
+  </div>
+
+  <!-- ============================================================
+       PROJECTS
+       ============================================================ -->
+  <div class="card">
+    <h2>Projects</h2>
+
+    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
+    <div class="entry">
+      <div class="entry-icon">🔬</div>
+      <div class="entry-body">
+        <div class="entry-title">Home SOC Lab</div>
+        <div class="entry-sub">Splunk, Suricata, Zeek, Docker</div>
+        <div class="entry-meta">2026 · Active</div>
+        <div class="entry-desc">Built a full detection pipeline: ingested network and endpoint logs into Splunk, wrote 20+ correlation searches, and mapped detections to MITRE ATT&CK.</div>
+        <a class="entry-link" href="https://github.com/yourname/soc-lab" target="_blank">🔗 View on GitHub</a>
+      </div>
+    </div>
+    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
+
+  </div>
+
+  <!-- ============================================================
+       BLOG POSTS
+       ============================================================ -->
+  <div class="card">
+    <h2>Blog Posts & Write-ups</h2>
+
+    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
+    <div class="entry">
+      <div class="entry-icon">✍️</div>
+      <div class="entry-body">
+        <div class="entry-title">How I Built My Home SOC on a Budget</div>
+        <div class="entry-sub">Medium</div>
+        <div class="entry-meta">Oct 2026</div>
+        <div class="entry-desc">Step-by-step guide to setting up Splunk Free, Zeek, and Suricata on a single VM for detection engineering practice.</div>
+        <a class="entry-link" href="https://medium.com/@you/home-soc" target="_blank">🔗 Read Post</a>
+      </div>
+    </div>
+    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
+
+  </div>
+
+  <!-- ============================================================
+       ACHIEVEMENTS & STATS
+       ============================================================ -->
+  <div class="card">
+    <h2>Achievements & Stats</h2>
+    <div class="ach-grid">
+
+      <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
+      <div class="ach-card">
+        <div class="ach-title">🏴 Hack The Box</div>
+        <div class="ach-value">#1,234</div>
+        <div class="ach-sub">Global Rank</div>
+        <div class="ach-sub">Top 2% worldwide</div>
+        <a class="ach-link" href="https://app.hackthebox.com/users/yourname" target="_blank">🔗 View Profile</a>
+      </div>
+      <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
+
+      <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
+      <div class="ach-card">
+        <div class="ach-title">🔥 TryHackMe</div>
+        <div class="ach-value">#5,678</div>
+        <div class="ach-sub">Rank</div>
+        <div class="ach-sub">Top 3% globally</div>
+        <a class="ach-link" href="https://tryhackme.com/p/yourname" target="_blank">🔗 View Profile</a>
+      </div>
+      <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VOLUNTEER
+       ============================================================ -->
+  <div class="card">
+    <h2>Volunteer</h2>
+
+    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
+    <div class="entry">
+      <div class="entry-icon">🤝</div>
+      <div class="entry-body">
+        <div class="entry-title">Security Awareness Volunteer</div>
+        <div class="entry-sub">Example Org</div>
+        <div class="entry-meta">2024 – Present</div>
+        <div class="entry-desc">Teach basic cybersecurity hygiene to community groups and small businesses.</div>
+      </div>
+    </div>
+    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
+
+  </div>
+
+</div>
+</body>
+</html>
