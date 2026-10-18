@@ -730,4 +730,142 @@
 <script>
   /**
    * Toggle a collapsible section between collapsed and expanded.
-   * @param {HT
+   * @param {HTMLButtonElement} btn - The clicked button
+   * @param {string} targetId - ID of the collapsible element
+   * @param {number} visibleCount - Number of items to show when collapsed
+   * @param {boolean} isGrid - True if the content is a grid (skills/achievements)
+   */
+  function toggleSection(btn, targetId, visibleCount, isGrid) {
+    const el = document.getElementById(targetId);
+    if (!el) return;
+
+    const isCollapsed = el.classList.contains('collapsed');
+
+    if (isCollapsed) {
+      // ===== EXPAND =====
+      // Store original collapsed height for later
+      if (!el.dataset.collapsedHeight) {
+        el.dataset.collapsedHeight = el.style.maxHeight || '';
+      }
+      el.classList.remove('collapsed');
+      el.style.maxHeight = el.scrollHeight + 'px';
+
+      // Update button text
+      btn.innerHTML = 'Show Less <i>▾</i>';
+      btn.classList.add('expanded');
+
+      // After transition, remove max-height so it can grow naturally
+      setTimeout(() => {
+        if (!el.classList.contains('collapsed')) {
+          el.style.maxHeight = 'none';
+        }
+      }, 450);
+
+    } else {
+      // ===== COLLAPSE =====
+      // Lock current height first for smooth transition
+      el.style.maxHeight = el.scrollHeight + 'px';
+      // Force reflow
+      void el.offsetHeight;
+
+      el.classList.add('collapsed');
+
+      // Calculate collapsed height based on content type
+      let collapsedHeight;
+      if (isGrid) {
+        // For grids (skills, achievements) — use line-based height
+        collapsedHeight = el.dataset.originalMaxHeight || el.style.getPropertyValue('--collapsed-height') || '200px';
+        // Recompute from CSS var if present
+        const cssVar = getComputedStyle(el).getPropertyValue('--collapsed-height').trim();
+        if (cssVar) collapsedHeight = cssVar;
+      } else {
+        // For entry lists — measure the first N entries
+        const entries = el.querySelectorAll(':scope > .entry');
+        if (entries.length > 0 && visibleCount > 0) {
+          const lastVisible = entries[Math.min(visibleCount, entries.length) - 1];
+          const elRect = el.getBoundingClientRect();
+          const lastRect = lastVisible.getBoundingClientRect();
+          collapsedHeight = (lastRect.bottom - elRect.top) + 'px';
+        } else {
+          collapsedHeight = '200px';
+        }
+      }
+
+      el.style.maxHeight = collapsedHeight;
+      btn.innerHTML = getExpandLabel(btn, visibleCount) + ' <i>▾</i>';
+      btn.classList.remove('expanded');
+    }
+  }
+
+  /**
+   * Return proper label for the expand button based on original text.
+   */
+  function getExpandLabel(btn, visibleCount) {
+    // Preserve original label if we saved it
+    if (!btn.dataset.originalLabel) {
+      // First click already changed it; derive from context
+      const card = btn.closest('.card');
+      const heading = card ? card.querySelector('h2') : null;
+      const title = heading ? heading.textContent.trim() : '';
+
+      if (title === 'About') return 'Read More';
+      if (title === 'Skills') return 'View More';
+      if (title === 'Certifications') return 'View More (10 more)';
+      if (title === 'Education') return 'View More';
+      if (title === 'Experience') return 'View More';
+      if (title === 'Projects') return 'View More';
+      if (title.includes('Blog')) return 'View More';
+      if (title.includes('Achievements')) return 'View More';
+      if (title === 'Volunteer') return 'View More';
+      return 'View More';
+    }
+    return btn.dataset.originalLabel;
+  }
+
+  /**
+   * Initialize all collapsible sections on page load:
+   * - Set proper collapsed heights
+   * - Save original button labels
+   */
+  document.addEventListener('DOMContentLoaded', () => {
+    // Save original button labels
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+      const label = btn.textContent.replace('▾', '').trim();
+      btn.dataset.originalLabel = label;
+    });
+
+    // Set collapsed max-heights for entry-based lists
+    document.querySelectorAll('.collapsible.collapsed').forEach(el => {
+      // Find the button that controls this element
+      const btn = document.querySelector(`.toggle-btn[onclick*="${el.id}"]`);
+      if (!btn) return;
+
+      const match = btn.getAttribute('onclick').match(/,\s*(\d+)/);
+      const visibleCount = match ? parseInt(match[1]) : 0;
+
+      // Skip About (uses CSS line-based height)
+      if (el.id === 'about-content') {
+        el.style.maxHeight = 'calc(1.5em * 5)';
+        return;
+      }
+
+      // Skip grid-based sections (skills, achievements)
+      if (el.id === 'skills-list' || el.id === 'ach-list') {
+        const cssVar = getComputedStyle(el).getPropertyValue('--collapsed-height').trim();
+        if (cssVar) el.style.maxHeight = cssVar;
+        return;
+      }
+
+      // For entry lists: measure first N entries
+      const entries = el.querySelectorAll(':scope > .entry');
+      if (entries.length > 0 && visibleCount > 0) {
+        const lastVisible = entries[Math.min(visibleCount, entries.length) - 1];
+        const elRect = el.getBoundingClientRect();
+        const lastRect = lastVisible.getBoundingClientRect();
+        el.style.maxHeight = (lastRect.bottom - elRect.top) + 'px';
+      } else {
+        el.style.maxHeight = '200px';
+      }
+    });
+  });
+</script>
