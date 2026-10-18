@@ -14,6 +14,8 @@
     --accent-dark:#004182;
     --border:#e0e0e0;
     --tag-bg:#eef3f8;
+    --shadow:0 1px 3px rgba(0,0,0,0.08);
+    --shadow-hover:0 4px 12px rgba(0,0,0,0.12);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{
@@ -30,7 +32,7 @@
     background:var(--card);
     border-radius:12px;
     overflow:hidden;
-    box-shadow:0 1px 3px rgba(0,0,0,0.08);
+    box-shadow:var(--shadow);
     margin-bottom:16px;
   }
   .banner{
@@ -68,7 +70,7 @@
     border-radius:12px;
     padding:16px;
     text-align:center;
-    box-shadow:0 1px 3px rgba(0,0,0,0.08);
+    box-shadow:var(--shadow);
   }
   .stat-number{font-size:26px;font-weight:700;color:var(--accent);}
   .stat-label{font-size:13px;color:var(--muted);margin-top:4px;}
@@ -78,11 +80,12 @@
     background:var(--card);
     border-radius:12px;
     padding:20px 24px;
-    box-shadow:0 1px 3px rgba(0,0,0,0.08);
+    box-shadow:var(--shadow);
     margin-bottom:16px;
   }
   .card h2{
     font-size:18px;font-weight:700;margin-bottom:16px;
+    display:flex;align-items:center;gap:8px;
   }
 
   /* ENTRIES */
@@ -110,12 +113,14 @@
   .entry-link:hover{text-decoration:underline;}
 
   /* SKILLS */
-  .tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;transition:max-height 0.4s ease;}
   .tag{
     background:var(--tag-bg);color:var(--accent);
     padding:6px 14px;border-radius:16px;
     font-size:13px;font-weight:600;
+    transition:0.2s;
   }
+  .tag:hover{background:#dce8f5;}
 
   /* ACHIEVEMENT CARDS */
   .ach-grid{
@@ -125,7 +130,9 @@
   }
   .ach-card{
     background:var(--tag-bg);border-radius:10px;padding:16px;
+    transition:0.2s;
   }
+  .ach-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover);}
   .ach-title{font-size:15px;font-weight:700;}
   .ach-value{font-size:22px;font-weight:700;color:var(--accent);margin-top:6px;}
   .ach-sub{font-size:13px;color:var(--muted);margin-top:4px;}
@@ -134,6 +141,54 @@
     font-weight:600;color:var(--accent);text-decoration:none;
   }
   .ach-link:hover{text-decoration:underline;}
+
+  /* === READ MORE / VIEW MORE STYLES === */
+  .collapsible{
+    overflow:hidden;
+    transition:max-height 0.45s ease;
+  }
+  .collapsible.collapsed{
+    max-height:var(--collapsed-height, 200px);
+    position:relative;
+  }
+  .collapsible.collapsed::after{
+    content:"";
+    position:absolute;
+    bottom:0;left:0;right:0;
+    height:60px;
+    background:linear-gradient(to bottom, transparent, var(--card));
+    pointer-events:none;
+  }
+  .toggle-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    margin-top:12px;
+    background:transparent;
+    border:1px solid var(--accent);
+    color:var(--accent);
+    padding:7px 16px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.2s ease;
+    font-family:inherit;
+  }
+  .toggle-btn:hover{
+    background:var(--accent);
+    color:#fff;
+  }
+  .toggle-btn i{
+    transition:transform 0.3s ease;
+    font-style:normal;
+  }
+  .toggle-btn.expanded i{
+    transform:rotate(180deg);
+  }
+
+  /* About paragraph collapsed height */
+  #about-content.collapsed{
+    max-height: calc(1.5em * 5);
+  }
 
   @media (max-width:600px){
     .name{font-size:22px;}
@@ -146,215 +201,533 @@
 <div class="container">
 
   <!-- ============================================================
-       HEADER — edit these lines
+       HEADER
        ============================================================ -->
   <div class="header">
-    <div class="banner"></div> <!-- <div class="banner" style="background-image:url('banner.jpg');background-size:cover;background-position:center;"></div> -->
+    <div class="banner"></div>
     <div class="header-body">
-      <div class="avatar">MF</div>   <!-- your initials <div class="avatar" style="background-image:url('profile.jpg');background-size:cover;background-position:center;"></div> -->
-      <div class="name">Muhammad Omar Fahim</div>
+      <div class="avatar">MF</div>
+      <div class="name">Tom Howard</div>
       <div class="headline">Security Enthusiast</div>
-   <!--   <div class="location">USA</div> -->
       <div class="contact">
         <a href="mailto:email@example.com">comingsoon@comingsoon</a>
-        <a href="https://www.linkedin.com/in/muhammad-omar-fahim-bd/">LinkedIn</a>
-        <a href="https://github.com/fahim-ipsec">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
       </div>
     </div>
   </div>
 
   <!-- ============================================================
-       STATS BAR — edit the numbers manually
+       STATS BAR
        ============================================================ -->
   <div class="stats-bar">
     <div class="stat-box"><div class="stat-number">1</div><div class="stat-label">Education</div></div>
-    <div class="stat-box"><div class="stat-number">1</div><div class="stat-label">Certifications</div></div>
-    <div class="stat-box"><div class="stat-number">6</div><div class="stat-label">Skills</div></div>
-    <div class="stat-box"><div class="stat-number">1</div><div class="stat-label">Experience</div></div>
-    <div class="stat-box"><div class="stat-number">1</div><div class="stat-label">Projects</div></div>
-    <div class="stat-box"><div class="stat-number">2</div><div class="stat-label">Achievements</div></div>
+    <div class="stat-box"><div class="stat-number">15</div><div class="stat-label">Certifications</div></div>
+    <div class="stat-box"><div class="stat-number">20+</div><div class="stat-label">Skills</div></div>
+    <div class="stat-box"><div class="stat-number">3</div><div class="stat-label">Experience</div></div>
+    <div class="stat-box"><div class="stat-number">5</div><div class="stat-label">Projects</div></div>
+    <div class="stat-box"><div class="stat-number">4</div><div class="stat-label">Achievements</div></div>
   </div>
 
   <!-- ============================================================
-       ABOUT
+       ABOUT (5 lines → Read More)
        ============================================================ -->
   <div class="card">
     <h2>About</h2>
-    <p style="font-size:14px;">
+    <div id="about-content" class="collapsible collapsed" style="--collapsed-height: calc(1.5em * 5); font-size:14px;">
       Hi! I'm Fahim, a passionate cybersecurity enthusiast and lifelong student with a mission to bridge the gap between complex threats and proactive awareness. I believe in a hands-on approach — mastering tools like Kali Linux and Wireshark through real-world practice in areas like Digital Forensics, Cloud Security, and Software Automation.
-
-Guided by honesty and a deep commitment to helping others, I aim to grow into a Cybercrime Analyst role where I can combine analytical thinking with ethical dedication. I'm always open to collaborating with fellow security researchers and enthusiasts!
-    </p>
+      <br><br>
+      Guided by honesty and a deep commitment to helping others, I aim to grow into a Cybercrime Analyst role where I can combine analytical thinking with ethical dedication. I'm always open to collaborating with fellow security researchers and enthusiasts! My journey in cybersecurity has been driven by curiosity and the desire to protect others from digital threats.
+    </div>
+    <button class="toggle-btn" onclick="toggleSection(this, 'about-content', 5)">Read More <i>▾</i></button>
   </div>
 
   <!-- ============================================================
-       EDUCATION — copy the .entry block to add more
+       EDUCATION (show 2 → View More)
        ============================================================ -->
   <div class="card">
     <h2>Education</h2>
-
-    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
-    <div class="entry">
-      <div class="entry-icon">🏫</div>
-      <div class="entry-body">
-        <div class="entry-title">B.S. Computer Science</div>
-        <div class="entry-sub">Example University</div>
-        <div class="entry-meta">2018 – 2022</div>
-        <div class="entry-desc">Focus areas: networking, operating systems, and information security.</div>
+    <div id="education-list" class="collapsible collapsed">
+      <!-- Entry 1 -->
+      <div class="entry">
+        <div class="entry-icon">🏫</div>
+        <div class="entry-body">
+          <div class="entry-title">B.S. Computer Science</div>
+          <div class="entry-sub">Example University</div>
+          <div class="entry-meta">2018 – 2022</div>
+          <div class="entry-desc">Focus areas: networking, operating systems, and information security.</div>
+        </div>
+      </div>
+      <!-- Entry 2 -->
+      <div class="entry">
+        <div class="entry-icon">🎓</div>
+        <div class="entry-body">
+          <div class="entry-title">M.S. Cybersecurity</div>
+          <div class="entry-sub">Another University</div>
+          <div class="entry-meta">2022 – 2024</div>
+          <div class="entry-desc">Specialization in digital forensics and threat intelligence.</div>
+        </div>
+      </div>
+      <!-- Entry 3 (hidden initially) -->
+      <div class="entry">
+        <div class="entry-icon">📜</div>
+        <div class="entry-body">
+          <div class="entry-title">Advanced Diploma in Network Security</div>
+          <div class="entry-sub">Tech Institute</div>
+          <div class="entry-meta">2017 – 2018</div>
+          <div class="entry-desc">Hands-on training in network defense and firewall configuration.</div>
+        </div>
       </div>
     </div>
-    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
-
+    <button class="toggle-btn" onclick="toggleSection(this, 'education-list', 2)">View More <i>▾</i></button>
   </div>
 
   <!-- ============================================================
-       CERTIFICATIONS
+       CERTIFICATIONS (show 5 → View More)
        ============================================================ -->
   <div class="card">
     <h2>Certifications</h2>
-
-    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
-    <div class="entry">
-      <div class="entry-icon">🎓</div>
-      <div class="entry-body">
-        <div class="entry-title">Cisco Splunk for AI Operations (CAIOP)</div>
-        <div class="entry-sub">Cisco / Splunk</div>
-        <div class="entry-meta">Oct 2026</div>
-        <div class="entry-desc">Applied AI/ML to IT operations data — event correlation, predictive analytics, and automated incident response.</div>
-        <a class="entry-link" href="https://www.credly.com/" target="_blank">🔗 View Credential</a>
+    <div id="certs-list" class="collapsible collapsed">
+      <!-- Cert 1 -->
+      <div class="entry">
+        <div class="entry-icon">🎓</div>
+        <div class="entry-body">
+          <div class="entry-title">Microsoft Certified: Azure Fundamentals</div>
+          <div class="entry-sub">Microsoft</div>
+          <div class="entry-meta">Oct 2023</div>
+          <div class="entry-desc">Foundational knowledge of cloud services, Azure architecture, security, and compliance.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View Credential</a>
+        </div>
+      </div>
+      <!-- Cert 2 -->
+      <div class="entry">
+        <div class="entry-icon">🌐</div>
+        <div class="entry-body">
+          <div class="entry-title">Cisco Certified Support Technician (CCST) IT Support</div>
+          <div class="entry-sub">Cisco</div>
+          <div class="entry-meta">2025</div>
+          <div class="entry-desc">IT support, network configuration, troubleshooting, and hardware/software installation.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View Credential</a>
+        </div>
+      </div>
+      <!-- Cert 3 -->
+      <div class="entry">
+        <div class="entry-icon">🛡️</div>
+        <div class="entry-body">
+          <div class="entry-title">Enterprise Defense Administrator</div>
+          <div class="entry-sub">INE</div>
+          <div class="entry-meta">Apr 2024</div>
+          <div class="entry-desc">Secure engineering, GRC, enterprise security architecture, and defensive strategies.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View Credential</a>
+        </div>
+      </div>
+      <!-- Cert 4 -->
+      <div class="entry">
+        <div class="entry-icon">🕵️</div>
+        <div class="entry-body">
+          <div class="entry-title">Junior Penetration Tester</div>
+          <div class="entry-sub">INE</div>
+          <div class="entry-meta">Mar 2024</div>
+          <div class="entry-desc">Assessment methodologies, web app pentesting, vulnerability identification, and exploitation.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View Credential</a>
+        </div>
+      </div>
+      <!-- Cert 5 -->
+      <div class="entry">
+        <div class="entry-icon">🔍</div>
+        <div class="entry-body">
+          <div class="entry-title">SOC Level 1</div>
+          <div class="entry-sub">TryHackMe</div>
+          <div class="entry-meta">Sep 2023</div>
+          <div class="entry-desc">Incident response, cyber risk management, SIEM operations, and log analysis.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View Credential</a>
+        </div>
+      </div>
+      <!-- Cert 6+ (hidden initially) -->
+      <div class="entry">
+        <div class="entry-icon">🔒</div>
+        <div class="entry-body">
+          <div class="entry-title">Security Engineer</div>
+          <div class="entry-sub">TryHackMe</div>
+          <div class="entry-meta">Oct 2023</div>
+          <div class="entry-desc">Security architecture, system hardening, vulnerability management, and secure design.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View Credential</a>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-icon">💀</div>
+        <div class="entry-body">
+          <div class="entry-title">Red Teaming</div>
+          <div class="entry-sub">TryHackMe</div>
+          <div class="entry-meta">Jul 2023</div>
+          <div class="entry-desc">Adversary simulation, threat emulation, and offensive security tactics.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View Credential</a>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-icon">🛡️</div>
+        <div class="entry-body">
+          <div class="entry-title">Cyber Defense</div>
+          <div class="entry-sub">TryHackMe</div>
+          <div class="entry-meta">Jun 2023</div>
+          <div class="entry-desc">Incident response, threat analysis, and defensive security controls.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View Credential</a>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-icon">⚡</div>
+        <div class="entry-body">
+          <div class="entry-title">Offensive Pentesting</div>
+          <div class="entry-sub">TryHackMe</div>
+          <div class="entry-meta">May 2023</div>
+          <div class="entry-desc">Ethical hacking, exploitation frameworks, and privilege escalation.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View Credential</a>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-icon">🎯</div>
+        <div class="entry-body">
+          <div class="entry-title">Jr Penetration Tester</div>
+          <div class="entry-sub">TryHackMe</div>
+          <div class="entry-meta">Apr 2023</div>
+          <div class="entry-desc">Penetration testing, vulnerability assessment, and network scanning.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View Credential</a>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-icon">🏢</div>
+        <div class="entry-body">
+          <div class="entry-title">Corporate Cybersecurity Management</div>
+          <div class="entry-sub">Cybrary</div>
+          <div class="entry-meta">2023</div>
+          <div class="entry-desc">Enterprise security strategy, risk management, and compliance.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View Credential</a>
+        </div>
       </div>
     </div>
-    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
-
+    <button class="toggle-btn" onclick="toggleSection(this, 'certs-list', 5)">View More (10 more) <i>▾</i></button>
   </div>
 
   <!-- ============================================================
-       SKILLS — copy the <span class="tag"> to add more
+       SKILLS (4 lines → View More)
        ============================================================ -->
   <div class="card">
     <h2>Skills</h2>
-    <div class="tags">
-      <span class="tag">Threat Hunting</span>
-      <span class="tag">Splunk SPL</span>
-      <span class="tag">Incident Response</span>
-      <span class="tag">Network Security</span>
-      <span class="tag">MITRE ATT&CK</span>
-      <span class="tag">Python</span>
+    <div id="skills-list" class="collapsible collapsed" style="--collapsed-height: calc(1.5em * 4);">
+      <div class="tags">
+        <span class="tag">Threat Hunting</span>
+        <span class="tag">Splunk SPL</span>
+        <span class="tag">Incident Response</span>
+        <span class="tag">Network Security</span>
+        <span class="tag">MITRE ATT&CK</span>
+        <span class="tag">Python</span>
+        <span class="tag">SIEM / Splunk</span>
+        <span class="tag">Burp Suite</span>
+        <span class="tag">Metasploit</span>
+        <span class="tag">Nmap</span>
+        <span class="tag">Wireshark</span>
+        <span class="tag">Linux Hardening</span>
+        <span class="tag">Active Directory</span>
+        <span class="tag">AWS / Azure</span>
+        <span class="tag">Bash Scripting</span>
+        <span class="tag">Docker</span>
+        <span class="tag">YARA Rules</span>
+        <span class="tag">Sigma Rules</span>
+        <span class="tag">Sysmon</span>
+        <span class="tag">DevSecOps</span>
+        <span class="tag">CI/CD Pipelines</span>
+        <span class="tag">Git &amp; GitHub</span>
+      </div>
     </div>
+    <button class="toggle-btn" onclick="toggleSection(this, 'skills-list', 4, true)">View More <i>▾</i></button>
   </div>
 
   <!-- ============================================================
-       EXPERIENCE
+       EXPERIENCE (show 3 → View More)
        ============================================================ -->
   <div class="card">
     <h2>Experience</h2>
-
-    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
-    <div class="entry">
-      <div class="entry-icon">💼</div>
-      <div class="entry-body">
-        <div class="entry-title">SOC Analyst</div>
-        <div class="entry-sub">Example Company</div>
-        <div class="entry-meta">Jan 2025 – Present</div>
-        <div class="entry-desc">Monitor security alerts in Splunk, triage incidents, and escalate confirmed threats. Wrote correlation searches mapped to MITRE ATT&CK.</div>
+    <div id="experience-list" class="collapsible collapsed">
+      <!-- Exp 1 -->
+      <div class="entry">
+        <div class="entry-icon">💼</div>
+        <div class="entry-body">
+          <div class="entry-title">SOC Analyst</div>
+          <div class="entry-sub">Example Company</div>
+          <div class="entry-meta">Jan 2025 – Present</div>
+          <div class="entry-desc">Monitor security alerts in Splunk, triage incidents, and escalate confirmed threats.</div>
+        </div>
+      </div>
+      <!-- Exp 2 -->
+      <div class="entry">
+        <div class="entry-icon">💼</div>
+        <div class="entry-body">
+          <div class="entry-title">IT Support Specialist</div>
+          <div class="entry-sub">Tech Solutions Inc.</div>
+          <div class="entry-meta">2023 – 2024</div>
+          <div class="entry-desc">Provided technical support, managed Active Directory, and maintained network infrastructure.</div>
+        </div>
+      </div>
+      <!-- Exp 3 -->
+      <div class="entry">
+        <div class="entry-icon">💼</div>
+        <div class="entry-body">
+          <div class="entry-title">Cybersecurity Intern</div>
+          <div class="entry-sub">SecureNet Corp</div>
+          <div class="entry-meta">2022 – 2023</div>
+          <div class="entry-desc">Assisted in vulnerability assessments and security awareness training.</div>
+        </div>
+      </div>
+      <!-- Exp 4+ (hidden) -->
+      <div class="entry">
+        <div class="entry-icon">💼</div>
+        <div class="entry-body">
+          <div class="entry-title">Network Administrator</div>
+          <div class="entry-sub">DataLink Systems</div>
+          <div class="entry-meta">2021 – 2022</div>
+          <div class="entry-desc">Managed firewalls, VPNs, and network monitoring tools.</div>
+        </div>
       </div>
     </div>
-    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
-
+    <button class="toggle-btn" onclick="toggleSection(this, 'experience-list', 3)">View More <i>▾</i></button>
   </div>
 
   <!-- ============================================================
-       PROJECTS
+       PROJECTS (show 5 → View More)
        ============================================================ -->
   <div class="card">
     <h2>Projects</h2>
-
-    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
-    <div class="entry">
-      <div class="entry-icon">🔬</div>
-      <div class="entry-body">
-        <div class="entry-title">Home SOC Lab</div>
-        <div class="entry-sub">Splunk, Suricata, Zeek, Docker</div>
-        <div class="entry-meta">2026 · Active</div>
-        <div class="entry-desc">Built a full detection pipeline: ingested network and endpoint logs into Splunk, wrote 20+ correlation searches, and mapped detections to MITRE ATT&CK.</div>
-        <a class="entry-link" href="https://github.com/yourname/soc-lab" target="_blank">🔗 View on GitHub</a>
+    <div id="projects-list" class="collapsible collapsed">
+      <!-- Proj 1 -->
+      <div class="entry">
+        <div class="entry-icon">🔬</div>
+        <div class="entry-body">
+          <div class="entry-title">Home SOC Lab</div>
+          <div class="entry-sub">Splunk, Suricata, Zeek, Docker</div>
+          <div class="entry-meta">2026 · Active</div>
+          <div class="entry-desc">Built a full detection pipeline: ingested network and endpoint logs into Splunk, wrote 20+ correlation searches.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View on GitHub</a>
+        </div>
+      </div>
+      <!-- Proj 2 -->
+      <div class="entry">
+        <div class="entry-icon">🔬</div>
+        <div class="entry-body">
+          <div class="entry-title">Malware Analysis Sandbox</div>
+          <div class="entry-sub">Python, Cuckoo, VirtualBox</div>
+          <div class="entry-meta">2025</div>
+          <div class="entry-desc">Automated malware analysis pipeline with behavioral reporting.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View on GitHub</a>
+        </div>
+      </div>
+      <!-- Proj 3 -->
+      <div class="entry">
+        <div class="entry-icon">🔬</div>
+        <div class="entry-body">
+          <div class="entry-title">Network Scanner Tool</div>
+          <div class="entry-sub">Python, Scapy</div>
+          <div class="entry-meta">2025</div>
+          <div class="entry-desc">Custom network scanning and vulnerability detection tool.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View on GitHub</a>
+        </div>
+      </div>
+      <!-- Proj 4 -->
+      <div class="entry">
+        <div class="entry-icon">🔬</div>
+        <div class="entry-body">
+          <div class="entry-title">Threat Intel Dashboard</div>
+          <div class="entry-sub">React, Python, MISP</div>
+          <div class="entry-meta">2024</div>
+          <div class="entry-desc">Real-time threat intelligence aggregation and visualization dashboard.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View on GitHub</a>
+        </div>
+      </div>
+      <!-- Proj 5 -->
+      <div class="entry">
+        <div class="entry-icon">🔬</div>
+        <div class="entry-body">
+          <div class="entry-title">Password Auditor</div>
+          <div class="entry-sub">Python, Hashcat</div>
+          <div class="entry-meta">2024</div>
+          <div class="entry-desc">Password strength analysis and hash cracking tool for security audits.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View on GitHub</a>
+        </div>
+      </div>
+      <!-- Proj 6+ (hidden) -->
+      <div class="entry">
+        <div class="entry-icon">🔬</div>
+        <div class="entry-body">
+          <div class="entry-title">Phishing Simulation Platform</div>
+          <div class="entry-sub">GoPhish, Python</div>
+          <div class="entry-meta">2024</div>
+          <div class="entry-desc">Automated phishing simulation and awareness training platform.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 View on GitHub</a>
+        </div>
       </div>
     </div>
-    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
-
+    <button class="toggle-btn" onclick="toggleSection(this, 'projects-list', 5)">View More <i>▾</i></button>
   </div>
 
   <!-- ============================================================
-       BLOG POSTS
+       BLOG POSTS (show 4 → View More)
        ============================================================ -->
   <div class="card">
-    <h2>Blog Posts & Write-ups</h2>
-
-    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
-    <div class="entry">
-      <div class="entry-icon">✍️</div>
-      <div class="entry-body">
-        <div class="entry-title">How I Built My Home SOC on a Budget</div>
-        <div class="entry-sub">Medium</div>
-        <div class="entry-meta">Oct 2026</div>
-        <div class="entry-desc">Step-by-step guide to setting up Splunk Free, Zeek, and Suricata on a single VM for detection engineering practice.</div>
-        <a class="entry-link" href="https://medium.com/@you/home-soc" target="_blank">🔗 Read Post</a>
+    <h2>Blog Posts &amp; Write-ups</h2>
+    <div id="blog-list" class="collapsible collapsed">
+      <!-- Blog 1 -->
+      <div class="entry">
+        <div class="entry-icon">✍️</div>
+        <div class="entry-body">
+          <div class="entry-title">How I Built My Home SOC on a Budget</div>
+          <div class="entry-sub">Medium</div>
+          <div class="entry-meta">Oct 2026</div>
+          <div class="entry-desc">Step-by-step guide to setting up Splunk Free, Zeek, and Suricata on a single VM.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 Read Post</a>
+        </div>
+      </div>
+      <!-- Blog 2 -->
+      <div class="entry">
+        <div class="entry-icon">✍️</div>
+        <div class="entry-body">
+          <div class="entry-title">Understanding MITRE ATT&CK for Beginners</div>
+          <div class="entry-sub">Medium</div>
+          <div class="entry-meta">Sep 2026</div>
+          <div class="entry-desc">A beginner-friendly guide to mapping threats using the MITRE ATT&CK framework.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 Read Post</a>
+        </div>
+      </div>
+      <!-- Blog 3 -->
+      <div class="entry">
+        <div class="entry-icon">✍️</div>
+        <div class="entry-body">
+          <div class="entry-title">Top 10 Splunk SPL Queries for Threat Hunting</div>
+          <div class="entry-sub">Medium</div>
+          <div class="entry-meta">Aug 2026</div>
+          <div class="entry-desc">Essential SPL queries every SOC analyst should know for effective threat hunting.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 Read Post</a>
+        </div>
+      </div>
+      <!-- Blog 4 -->
+      <div class="entry">
+        <div class="entry-icon">✍️</div>
+        <div class="entry-body">
+          <div class="entry-title">Incident Response Playbook Template</div>
+          <div class="entry-sub">Medium</div>
+          <div class="entry-meta">Jul 2026</div>
+          <div class="entry-desc">A practical IR playbook template with real-world scenarios and escalation procedures.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 Read Post</a>
+        </div>
+      </div>
+      <!-- Blog 5+ (hidden) -->
+      <div class="entry">
+        <div class="entry-icon">✍️</div>
+        <div class="entry-body">
+          <div class="entry-title">Wireshark Filters Cheat Sheet</div>
+          <div class="entry-sub">Medium</div>
+          <div class="entry-meta">Jun 2026</div>
+          <div class="entry-desc">Comprehensive cheat sheet for Wireshark display and capture filters.</div>
+          <a class="entry-link" href="#" target="_blank">🔗 Read Post</a>
+        </div>
       </div>
     </div>
-    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
-
+    <button class="toggle-btn" onclick="toggleSection(this, 'blog-list', 4)">View More <i>▾</i></button>
   </div>
 
   <!-- ============================================================
-       ACHIEVEMENTS & STATS
+       ACHIEVEMENTS (show 4 → View More)
        ============================================================ -->
   <div class="card">
-    <h2>Achievements & Stats</h2>
-    <div class="ach-grid">
-
-      <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
-      <div class="ach-card">
-        <div class="ach-title">🏴 Hack The Box</div>
-        <div class="ach-value">#1,234</div>
-        <div class="ach-sub">Global Rank</div>
-        <div class="ach-sub">Top 2% worldwide</div>
-        <a class="ach-link" href="https://app.hackthebox.com/users/yourname" target="_blank">🔗 View Profile</a>
+    <h2>Achievements &amp; Stats</h2>
+    <div id="ach-list" class="collapsible collapsed">
+      <div class="ach-grid">
+        <!-- Ach 1 -->
+        <div class="ach-card">
+          <div class="ach-title">🏴 Hack The Box</div>
+          <div class="ach-value">#1,234</div>
+          <div class="ach-sub">Global Rank</div>
+          <div class="ach-sub">Top 2% worldwide</div>
+          <a class="ach-link" href="#" target="_blank">🔗 View Profile</a>
+        </div>
+        <!-- Ach 2 -->
+        <div class="ach-card">
+          <div class="ach-title">🔥 TryHackMe</div>
+          <div class="ach-value">#5,678</div>
+          <div class="ach-sub">Rank</div>
+          <div class="ach-sub">Top 3% globally</div>
+          <a class="ach-link" href="#" target="_blank">🔗 View Profile</a>
+        </div>
+        <!-- Ach 3 -->
+        <div class="ach-card">
+          <div class="ach-title">🐛 Bugcrowd</div>
+          <div class="ach-value">12</div>
+          <div class="ach-sub">Vulnerabilities Reported</div>
+          <div class="ach-sub">3 Critical</div>
+          <a class="ach-link" href="#" target="_blank">🔗 View Profile</a>
+        </div>
+        <!-- Ach 4 -->
+        <div class="ach-card">
+          <div class="ach-title">🎯 CTF Competitions</div>
+          <div class="ach-value">8</div>
+          <div class="ach-sub">Top 10 Finishes</div>
+          <div class="ach-sub">National Level</div>
+          <a class="ach-link" href="#" target="_blank">🔗 View Profile</a>
+        </div>
+        <!-- Ach 5+ (hidden) -->
+        <div class="ach-card">
+          <div class="ach-title">📜 Certifications</div>
+          <div class="ach-value">15+</div>
+          <div class="ach-sub">Earned</div>
+          <div class="ach-sub">Industry Recognized</div>
+          <a class="ach-link" href="#" target="_blank">🔗 View All</a>
+        </div>
       </div>
-      <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
-
-      <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
-      <div class="ach-card">
-        <div class="ach-title">🔥 TryHackMe</div>
-        <div class="ach-value">#5,678</div>
-        <div class="ach-sub">Rank</div>
-        <div class="ach-sub">Top 3% globally</div>
-        <a class="ach-link" href="https://tryhackme.com/p/yourname" target="_blank">🔗 View Profile</a>
-      </div>
-      <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
-
     </div>
+    <button class="toggle-btn" onclick="toggleSection(this, 'ach-list', 4, true)">View More <i>▾</i></button>
   </div>
 
   <!-- ============================================================
-       VOLUNTEER
+       VOLUNTEER (show 2 → View More)
        ============================================================ -->
   <div class="card">
     <h2>Volunteer</h2>
-
-    <!-- ▼ COPY THIS BLOCK TO ADD MORE ▼ -->
-    <div class="entry">
-      <div class="entry-icon">🤝</div>
-      <div class="entry-body">
-        <div class="entry-title">Security Awareness Volunteer</div>
-        <div class="entry-sub">Example Org</div>
-        <div class="entry-meta">2024 – Present</div>
-        <div class="entry-desc">Teach basic cybersecurity hygiene to community groups and small businesses.</div>
+    <div id="volunteer-list" class="collapsible collapsed">
+      <!-- Vol 1 -->
+      <div class="entry">
+        <div class="entry-icon">🤝</div>
+        <div class="entry-body">
+          <div class="entry-title">Security Awareness Volunteer</div>
+          <div class="entry-sub">Example Org</div>
+          <div class="entry-meta">2024 – Present</div>
+          <div class="entry-desc">Teach basic cybersecurity hygiene to community groups and small businesses.</div>
+        </div>
+      </div>
+      <!-- Vol 2 -->
+      <div class="entry">
+        <div class="entry-icon">🤝</div>
+        <div class="entry-body">
+          <div class="entry-title">CTF Mentor</div>
+          <div class="entry-sub">Cyber Club</div>
+          <div class="entry-meta">2023 – Present</div>
+          <div class="entry-desc">Mentor students in capture-the-flag competitions and ethical hacking.</div>
+        </div>
+      </div>
+      <!-- Vol 3+ (hidden) -->
+      <div class="entry">
+        <div class="entry-icon">🤝</div>
+        <div class="entry-body">
+          <div class="entry-title">Open Source Contributor</div>
+          <div class="entry-sub">Security Tools Project</div>
+          <div class="entry-meta">2022 – Present</div>
+          <div class="entry-desc">Contributed to open-source security tools and documentation.</div>
+        </div>
       </div>
     </div>
-    <!-- ▲ COPY THIS BLOCK TO ADD MORE ▲ -->
-
+    <button class="toggle-btn" onclick="toggleSection(this, 'volunteer-list', 2)">View More <i>▾</i></button>
   </div>
 
 </div>
-</body>
-</html>
+
+<script>
+  /**
+   * Toggle a collapsible section between collapsed and expanded.
+   * @param {HT
